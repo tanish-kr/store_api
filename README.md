@@ -1,4 +1,5 @@
 # StoreApi
+[![Coverage Status](https://coveralls.io/repos/tatsu07/store_api/badge.svg)](https://coveralls.io/r/tatsu07/store_api)
 
 TODO: Write a gem description
 
