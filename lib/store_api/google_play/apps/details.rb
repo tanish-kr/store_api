@@ -14,6 +14,9 @@ module StoreApi
         ##
         # initialize
         # @param [String] id
+        # @param [String] lang
+        # @param [Hash] proxy
+        # @param [Hash] option
         def initialize(id,lang=nil,proxy=nil,option=nil)
           params = {'id' => id }
           if !lang.nil?
