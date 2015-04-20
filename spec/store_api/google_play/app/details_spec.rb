@@ -17,9 +17,9 @@ describe StoreApi::GooglePlay::Apps::Details do
     expect(apps.screenshot.size).to be > 0
     expect(apps.video_url).not_to be nil
     expect(apps.description).not_to be nil
-    expect(apps.rationg_score).not_to be nil
+    expect(apps.rating_score).not_to be nil
     expect(apps.rating_value).not_to be nil
-    expect(apps.rationg_count).not_to be nil
+    expect(apps.rating_count).not_to be nil
     expect(apps.rating_map.size).to be > 0
     expect(apps.whatsnew).not_to be nil
     expect(apps.date_published).not_to be nil
