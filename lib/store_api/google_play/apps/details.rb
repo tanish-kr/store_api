@@ -8,22 +8,24 @@ module StoreApi
       class Details
         include StoreApi::Request
         @@path = '/store/apps/details'
-        attr_accessor :id,:title,:cover_image,:developer,:developer_url,:category,:category_id,:category_url,:badge_title,
-          :google_plus,:video_url,:screenshot,:description,:rating_value,:rating_count,:rating_score,:rating_map,:whatsnew,
-          :date_published,:file_size,:downloads,:software_version,:operating_system,:content_rating,:developer_links,:developer_address
+        attr_accessor :id,:title,:cover_image,:developer,:developer_url,:category,:category_id,
+          :category_url,:badge_title,:price,:google_plus,:video_url,:screenshot,:description,
+          :rating_value,:rating_count,:rating_score,:rating_map,:whatsnew,:date_published,
+          :file_size,:downloads,:software_version,:operating_system,:content_rating,
+          :developer_links,:developer_address
         ##
         # initialize
         # @param [String] id
         # @param [String] lang
         # @param [Hash] proxy
-        # @param [Hash] option
-        def initialize(id,lang=nil,proxy=nil,option=nil)
+        # @param [Hash] header
+        def initialize(id,lang=nil,proxy=nil,header=nil)
           params = {'id' => id }
           if !lang.nil?
             params['hl'] = lang
           end
           begin
-            html = get(StoreApi::GooglePlay::HOST,@@path,StoreApi::GooglePlay::HTTPS,proxy,option,params)
+            html = get(StoreApi::GooglePlay::HOST,@@path,params,StoreApi::GooglePlay::HTTPS,proxy,header)
             doc = Nokogiri::HTML(html,nil,'utf-8')
             @id = id
 
@@ -38,6 +40,7 @@ module StoreApi
               @category_url = node.css('.category').attribute('href').value
               @category_id = node.css('.category').attribute('href').value.split("/")[4]
               @badge_title = node.css('.badge-title').text.strip
+              @price = node.xpath("//*[@class='price buy id-track-click']//*[@itemprop='price']/@content").text
             end
 
             thumbnails_xpath = "#{content_xpath}//div[@class='thumbnails']"

@@ -8,24 +8,39 @@ module StoreApi
 
     ##
     # http get
-    # @params [String] host
-    # @params [String] path
-    # @params [Hash] proxy [:host=>'host',:port=>port]
-    # @params [Hash] params
+    # @param [String] host
+    # @param [String] path
+    # @param [Hash] proxy [:host=>'host',:port=>port]
+    # @param [Hash] header http header
+    # @param [Hash] params
     # @return [String] response.body
-    def get(host,path,https=false,proxy=nil,option=nil,params=nil)
-      request(host,path,'get',https,proxy,option,params).body
+    def get(host,path,params=nil,https=false,proxy=nil,header=nil)
+      request(host,path,'get',params,https,proxy,header).body
+    end
+
+    ##
+    # http post
+    # @param [String] host
+    # @param [String] path
+    # @param [Hash] params
+    # @param [Hash] proxy [:host=>'host',:port=>port]
+    # @param [Hash] header http header
+    # @return [String] response.body
+    def post(host,path,params=nil,https=false,proxy=nil,header=nil)
+      request(host,path,'post',params,https,proxy,header).body
     end
 
     ##
     # http request
-    # @params [String] host
-    # @params [String] path
-    # @params [Hash] proxy [:host=>'host',:port=>port]
-    # @params [String] method get/post
-    # @params [Hash] params
+    # @param [String] host
+    # @param [String] path
+    # @param [String] method get/post
+    # @param [Boolean] https
+    # @param [Hash] proxy [:host=>'host',:port=>port]
+    # @param [Hash] header http header
+    # @param [Hash] params
     # @return [Object] response
-    def request(host,path,method='get',https=false,proxy=nil,option=nil,params=nil)
+    def request(host,path,method='get',params=nil,https=false,proxy=nil,header=nil)
       if !params.nil?
         query = params.map{|k,v| "#{k}=#{v}"}.join('&')
         query_escaped = URI.escape(query)
@@ -45,13 +60,18 @@ module StoreApi
         end
       end
       http.read_timeout = TIME_OUT
-      if !option.nil? && !option.empty?
+      if !header.nil? && !header.empty?
         if method == 'get'
           if !query_escaped.nil?
             path = path + '?' + query_escaped
           end
-          response = http.get(path,option)
-          #TODO post/put
+          response = http.get(path,header)
+        elsif method == 'post'
+          if !query_escaped.nil?
+            response = http.post(path,query_escaped,header)
+          else
+            response = http.post(path,nil,header)
+          end
         end
       else
         if method == 'get'
@@ -59,7 +79,12 @@ module StoreApi
             path = path + '?' + query_escaped
           end
           response = http.get(path)
-          #TODO post/put
+        elsif method == 'post'
+          if !query_escaped.nil?
+            response = http.post(path,query_escaped)
+          else
+            response = http.post(path)
+          end
         end
       end
       if response.code.to_i > 500
@@ -77,7 +102,7 @@ module StoreApi
         if @@redirect_count > 5
           raise "Exception Redirect Loop"
         end
-        response = request(redirect_url.host,redirect_url.path,method,https,proxy,option,params)
+        response = request(redirect_url.host,redirect_url.path,method,params,https,proxy,header)
       else
         @redirect_count = 0
         response
