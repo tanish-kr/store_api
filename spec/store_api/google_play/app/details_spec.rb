@@ -8,6 +8,7 @@ describe StoreApi::GooglePlay::Apps::Details do
     # apps  = StoreApi::GooglePlay::Apps::Details.new('com.toiletgaman','en')
     expect(apps.title).not_to be nil
     expect(apps.cover_image).not_to be nil
+    expect(apps.price).not_to be nil
     expect(apps.developer).not_to be nil
     expect(apps.developer_url).not_to be nil
     expect(apps.category).not_to be nil
