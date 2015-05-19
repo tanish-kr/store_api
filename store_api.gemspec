@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = StoreApi::VERSION
   spec.authors       = ["tatsunori_nishikori"]
   spec.email         = ["tora.1986.tatsu@gmail.com"]
-  spec.summary       = %q{Store Api for ruby}
-  spec.description   = %q{GooglePlay,AppStore to api}
+  spec.summary       = %q{Smartphone app store data acquisition API.}
+  spec.description   = %q{This is the API to get the data from GooglePlay and AppStore and KindleStore and WindowsStore.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
