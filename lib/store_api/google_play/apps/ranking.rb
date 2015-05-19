@@ -22,6 +22,10 @@ module StoreApi
         # @see StoreApi::GooglePlay::RANKING_TYPE_LIST
         # @see StoreApi::GooglePlay::CATEGORY_ID_LIST
         def initialize(ranking_type=nil,category_id=nil,lang=nil,proxy=nil,header=nil)
+          params = {}
+          if !lang.nil?
+            params['hl'] = lang
+          end
           if category_id.nil?
             @@path = "/store/apps/collection/#{ranking_type}"
           else
@@ -31,9 +35,11 @@ module StoreApi
           num = 60
           (0..8).each do |start|
             begin
-            html = post(StoreApi::GooglePlay::HOST,@@path,{'start'=>start*60,'num'=>num},StoreApi::GooglePlay::HTTPS,proxy,header)
-            doc = Nokogiri::HTML(html,nil,'utf-8')
-            parse(doc)
+              params['start'] = start*60
+              params['num'] = num
+              html = post(StoreApi::GooglePlay::HOST,@@path,params,StoreApi::GooglePlay::HTTPS,proxy,header)
+              doc = Nokogiri::HTML(html,nil,'utf-8')
+              parse(doc)
             rescue => e
               puts e.backtrace
               puts e.message
