@@ -10,16 +10,22 @@ module StoreApi
         include StoreApi::GooglePlay::Card
         attr_accessor :search_list
 
-        def initialize(search_word,limit=nil,proxy=nil,header=nil)
-          @@path = URI.escape("/store/search?q=#{search_word}&c=apps")
+        def initialize(search_word,lang=nil,limit=nil,proxy=nil,header=nil)
+          params = {'q' => search_word,'c' => 'apps' }
+          if !lang.nil?
+            params['hl'] = lang
+          end
+          @@path = URI.escape("/store/search")
           @search_list = []
           num = 60
           # TODO search limit
           (0..2).each do |start|
             begin
-            html = post(StoreApi::GooglePlay::HOST,@@path,{'start'=>start*60,'num'=>num},StoreApi::GooglePlay::HTTPS,proxy,header)
-            doc = Nokogiri::HTML(html,nil,'utf-8')
-            @search_list.concat(parse(doc))
+              params['start'] = start*60
+              params['num'] = num
+              html = post(StoreApi::GooglePlay::HOST,@@path,params,StoreApi::GooglePlay::HTTPS,proxy,header)
+              doc = Nokogiri::HTML(html,nil,'utf-8')
+              @search_list.concat(parse(doc))
             rescue => e
               puts e.backtrace
               puts e.message
