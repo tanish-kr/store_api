@@ -30,7 +30,7 @@ module StoreApi
             @id = id
 
             content_xpath = "id('body-content')"
-            doc.xpath("#{content_xpath}/div[@class='main-content']//div[@class='details-info']").each do |node|
+            doc.xpath("#{content_xpath}//div[@class='details-info']").each do |node|
               # puts node.methods
               @title = node.css('.document-title').text.strip
               @cover_image = node.css('.cover-image').attribute('src').value
@@ -74,7 +74,7 @@ module StoreApi
             @developer_address = doc.xpath("#{metadata_xpath}//div[@class='content physical-address']").text
             @developer_address = !@developer_address.nil? ? @developer_address.strip : nil
             @developer_links = []
-            doc.xpath("#{metadata_xpath}//div[@class='content contains-text-link']/a[@class='dev-link']").each do |node|
+            doc.xpath("#{content_xpath}//div[@class='details-section metadata']//div[@class='content contains-text-link']/a[@class='dev-link']").each do |node|
               @developer_links.push({'text' => node.text,'link' => node.attribute('href').value})
             end
           rescue => e
