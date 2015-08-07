@@ -1,5 +1,6 @@
 # encoding : utf-8
 require 'store_api/app_store/apps/details'
+require 'store_api/app_store/apps/ranking'
 
 module StoreApi
   module AppStore
