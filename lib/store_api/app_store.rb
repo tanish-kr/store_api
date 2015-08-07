@@ -1,4 +1,5 @@
 # encoding : utf-8
+require 'json'
 require 'store_api/app_store/apps/details'
 require 'store_api/app_store/apps/ranking'
 
