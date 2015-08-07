@@ -6,6 +6,7 @@ describe StoreApi::GooglePlay::Apps::Details do
   it 'details test' do
     apps  = StoreApi::GooglePlay::Apps::Details.new('com.king.candycrushsodasaga','en')
     # apps  = StoreApi::GooglePlay::Apps::Details.new('com.toiletgaman','en')
+    puts apps
     expect(apps.title).not_to be nil
     expect(apps.cover_image).not_to be nil
     expect(apps.price).not_to be nil
