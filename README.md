@@ -41,10 +41,13 @@ puts apps.title
 ```ruby
 # Top Grossing Android Apps
 ranking = StoreApi::GooglePlay::Apps::Ranking.new('topgrossing')
+puts ranking.topchart
 # Top Grossing Games
 ranking = StoreApi::GooglePlay::Apps::Ranking.new('topgrossing','GAME')
+puts ranking.topchart
 # Trending Apps
 trending_apps = StoreApi::GooglePlay::Apps::Ranking.new('movers_shakers')
+puts trending_apps.topchart
 ```
 
 - search apps
@@ -57,6 +60,23 @@ search_apps = StoreApi::GooglePlay::Apps::Search.new('candy crush')
 
 ```ruby
 developer_apps = StoreApi::GooglePlay::Apps::Developer.new('King')
+```
+
+#### AppStore
+- app details
+
+```ruby
+apps = StoreApi::AppStore::Apps::Details.new('850417475', 'US')
+puts apps.title
+>>> "Candy Crush Soda Saga"
+```
+
+- ranking chart
+
+```ruby
+# us topgrossingapplications Games ranking
+ranking = StoreApi::AppStore::Apps::Ranking.new('topgrossingapplications', '7001', 'us', 20)
+puts ranking.topchart
 ```
 
 ## Contributing
