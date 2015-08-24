@@ -48,7 +48,7 @@ module StoreApi
             @video_url = doc.xpath("#{thumbnails_xpath}/span[@class='details-trailer']/span[@class='preview-overlay-container']/@data-video-url").text
             @description = doc.xpath("#{content_xpath}//div[@itemprop='description']").to_html
             @rating_score = doc.xpath("#{content_xpath}//div[@class='rating-box']//div[@class='score']").text
-            rating_xpath = "#{content_xpath}////div[@class='rating-box']"
+            rating_xpath = "#{content_xpath}//div[@class='rating-box']"
             @rating_value = doc.xpath("#{rating_xpath}//*[@itemprop='ratingValue']/@content").text
             @rating_count = doc.xpath("#{rating_xpath}//*[@itemprop='ratingCount']/@content").text
 
