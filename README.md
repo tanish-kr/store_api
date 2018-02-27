@@ -1,5 +1,5 @@
 # StoreApi
-[![Coverage Status](https://coveralls.io/repos/tatsu07/store_api/badge.svg)](https://coveralls.io/r/tatsu07/store_api) [![Build Status](https://travis-ci.org/tatsu07/store_api.svg?branch=master)](https://travis-ci.org/tatsu07/store_api)
+[![Coverage Status](https://coveralls.io/repos/kitaro-tn/store_api/badge.svg)](https://coveralls.io/r/tatsu07/store_api) [![Build Status](https://travis-ci.org/kitaro-tn/store_api.svg?branch=master)](https://travis-ci.org/tatsu07/store_api)
 
 This is the API to get the data from GooglePlay and AppStore and KindleStore and WindowsStore
 
