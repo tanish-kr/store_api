@@ -23,5 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "yard"
   spec.add_development_dependency 'simplecov', '~> 0.9.2'
-  spec.add_development_dependency "nokogiri", "~> 1.6.6.2"
+  spec.add_runtime_dependency "nokogiri", '~> 1.9', '>= 1.9.1'
 end
