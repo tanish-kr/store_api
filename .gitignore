@@ -13,3 +13,5 @@
 *.a
 mkmf.log
 *.swp
+.rbenv-gemsets
+.ruby-version
